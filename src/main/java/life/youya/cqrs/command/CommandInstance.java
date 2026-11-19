@@ -37,6 +37,4 @@ public class CommandInstance<P, R> {
 	public void setResult(R result) {
 		this.result = result;
 	}
-	
-	
 }

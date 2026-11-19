@@ -12,23 +12,25 @@ public interface AnnotatedCommand<P, R> extends Command<P, R> {
 		return type.value();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public default Class<?> getParameterClass() {
+	public default Class<P> getParameterClass() {
 		for (Class<?> innerClass : this.getClass().getDeclaredClasses()) {
 			CommandParameter paramAnno = innerClass.getAnnotation(CommandParameter.class);
 			if (paramAnno != null) {
-				return innerClass;
+				return (Class<P>) innerClass;
 			}
 		}
 		throw new IllegalStateException("Command parameter class not specified");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public default Class<?> getResultClass() {
+	public default Class<R> getResultClass() {
 		for (Class<?> innerClass : this.getClass().getDeclaredClasses()) {
 			CommandResult resulAnno = innerClass.getAnnotation(CommandResult.class);
 			if (resulAnno != null) {
-				return innerClass;
+				return (Class<R>) innerClass;
 			}
 		}
 		throw new IllegalStateException("Command result class not specified");

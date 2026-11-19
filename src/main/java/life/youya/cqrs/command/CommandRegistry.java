@@ -2,16 +2,18 @@ package life.youya.cqrs.command;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CommandRegistry {
-	Map<String, Command<Object, Object>> queries = new HashMap<>();
+	Map<String, Command<?, ?>> queries = new HashMap<>();
 	
-	public void addCommand(Command<Object, Object> command) {
+	public void addCommand(Command<?, ?> command) {
 		queries.put(command.getType(), command);
 	}
 	
-	public Optional<Command<Object, Object>> getCommandByType(String type) {
-		return Optional.ofNullable(queries.get(type));
+	public Command<?, ?> getCommandByType(String type) {
+		return queries.get(type);
 	}
 }
